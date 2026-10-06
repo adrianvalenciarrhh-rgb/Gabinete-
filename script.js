@@ -249,3 +249,50 @@
   document.addEventListener('visibilitychange', function () { if (!document.hidden) kick(); });
   if (mq.addEventListener) mq.addEventListener('change', kick);
 })();
+
+
+/* 05 — departures board: rows flip in, lamps light, touch to flip again */
+(function () {
+  'use strict';
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#avances .book__rows li'));
+  if (!rows.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  rows.forEach(function (li) { li._name = li.querySelector('.row__name'); li._text = li._name.textContent; });
+
+  function flip(li, delay) {
+    if (li._busy) return;
+    li._busy = true;
+    setTimeout(function () {
+      var name = li._name, text = li._text, n = text.length, start = performance.now(), dur = 520 + n * 9;
+      li.classList.remove('is-set', 'is-flip'); void li.offsetWidth; li.classList.add('is-flip');
+      name.setAttribute('aria-hidden', 'true');
+      function step(now) {
+        var t = Math.min(1, (now - start) / dur), out = '';
+        for (var i = 0; i < n; i++) {
+          var c = text[i];
+          if (c === ' ' || t * (n + 6) > i + 6 || /[.,]/.test(c)) out += c;
+          else out += GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        }
+        name.textContent = t < 1 ? out : text;
+        if (t < 1) requestAnimationFrame(step);
+        else { name.removeAttribute('aria-hidden'); li.classList.add('is-set'); li._busy = false; }
+      }
+      requestAnimationFrame(step);
+    }, delay || 0);
+  }
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    rows.forEach(function (li) { li.classList.add('is-set'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (en) {
+    if (en[0].isIntersecting) { io.disconnect(); rows.forEach(function (li, i) { flip(li, 150 + i * 260); }); }
+  }, { threshold: 0.35 });
+  io.observe(document.querySelector('#avances .book__rows'));
+  rows.forEach(function (li) {
+    li.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && li.classList.contains('is-set')) flip(li); });
+    li.addEventListener('click', function () { if (li.classList.contains('is-set')) flip(li); });
+    li.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(li); } });
+  });
+})();
