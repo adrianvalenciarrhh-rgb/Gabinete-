@@ -14,20 +14,19 @@
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
   <main>
     <!-- 00 — Portada -->
     <section class="sec hero" id="portada" aria-labelledby="h-portada">
       <div class="wrap hero__inner">
-        <header class="doc-head reveal">
-          <p class="label"><span class="label__dot" aria-hidden="true"></span><strong>00 — Portada</strong></p>
-          <p class="doc-meta"><span class="doc-meta__name">Adrián Valencia Ríos</span><span class="doc-meta__place">Sevilla · octubre de 2026</span></p>
-        </header>
+        <p class="label reveal"><span class="label__dot" aria-hidden="true"></span><strong>00 — Portada</strong></p>
         <h1 class="hero__title" id="h-portada">
           <strong><span class="hero__line hero__line--a reveal">Muchas manos.</span> <span class="hero__line hero__line--b reveal" style="--d:120ms">Un solo pulso.</span></strong>
         </h1>
         <div class="hero__foot">
           <p class="hero__lede reveal" style="--d:240ms">Mi ecosistema personal de IA. Lo que sabe está en <strong>Notion</strong>; lo que hace ocurre en <strong>Grok Bot</strong>. La última palabra la pongo yo.</p>
-          <p class="hero__cta reveal" style="--d:360ms"><a class="text-link" href="#recorrido">Ver qué pasa al pulsar Enviar ↓</a></p>
+          <a class="btn btn--ghost reveal" style="--d:360ms" href="#recorrido">Ver qué pasa al pulsar Enviar ↓</a>
         </div>
       </div>
       <div class="motif motif--hero" aria-hidden="true">
@@ -47,69 +46,144 @@
           <article class="panel panel--paper reveal">
             <div class="panel__top" aria-hidden="true"><span class="panel__glyph">N</span></div>
             <p class="panel__text"><strong class="panel__name">Notion — La biblioteca.</strong> Todo lo que el sistema sabe está escrito aquí. Si algo no coincide con Notion, manda Notion.</p>
-            <p class="meta-line meta-line--paper"><code>Fuente única de verdad</code></p>
+            <ul class="chips" aria-label="Notion">
+              <li><code class="chip chip--paper">Fuente única de verdad</code></li>
+            </ul>
           </article>
 
           <div class="plat__bridge" aria-hidden="true"><span></span></div>
 
           <article class="panel panel--screen reveal" style="--d:120ms">
-            <div class="panel__top" aria-hidden="true"></div>
+            <div class="panel__top" aria-hidden="true"><span class="panel__lights"><i></i><i></i><i></i></span></div>
             <p class="panel__text"><strong class="panel__name">Grok Bot — El taller.</strong> Donde los agentes conversan, recuerdan y hacen el trabajo.</p>
-            <p class="meta-line"><code>Memoria persistente</code><span class="meta-sep" aria-hidden="true"> · </span><code>Skills</code><span class="meta-sep" aria-hidden="true"> · </span><code>Conectores</code></p>
+            <ul class="chips" aria-label="Grok Bot">
+              <li><code class="chip">Memoria persistente</code></li>
+              <li><code class="chip">Skills</code></li>
+              <li><code class="chip">Conectores</code></li>
+            </ul>
           </article>
         </div>
 
-        <p class="meta-line meta-line--center connectors reveal" aria-label="Conectores">Gmail · Google Calendar · Drive · Notion · GitHub</p>
+        <ul class="connectors reveal" aria-label="Conectores">
+          <li>Gmail</li><li aria-hidden="true" class="sep">·</li><li>Google Calendar</li><li aria-hidden="true" class="sep">·</li><li>Drive</li><li aria-hidden="true" class="sep">·</li><li>Notion</li><li aria-hidden="true" class="sep">·</li><li>GitHub</li>
+        </ul>
 
         <p class="coda reveal"><em>Si cambia la biblioteca, cambia el taller.</em></p>
       </div>
     </section>
 
-    <!-- 02 — Recorrido -->
+    <!-- 02 — Recorrido (redesigned: sticky stage + live state) -->
     <section class="sec route" id="recorrido" aria-labelledby="h-route">
       <div class="wrap">
         <h2 class="label reveal" id="h-route"><span class="label__dot" aria-hidden="true"></span><strong>02 — Recorrido · Lo que pasa después de pulsar Enviar</strong></h2>
 
-        <figure class="composer reveal" aria-label="Ejemplo">
-          <figcaption class="composer__label">Ejemplo:</figcaption>
-          <div class="composer__box">
-            <p class="composer__msg"><em>«¿Qué cambia en un contrato desde el 5 de octubre?»</em></p>
-            <span class="composer__enter" aria-hidden="true">↵</span>
-          </div>
-        </figure>
+        <div class="flow reveal" data-flow>
+          <div class="flow__pin">
+            <figure class="composer" aria-label="Ejemplo">
+              <figcaption class="composer__label">Ejemplo:</figcaption>
+              <div class="composer__box">
+                <p class="composer__msg"><em class="typed">«¿Qué cambia en un contrato desde el 5 de octubre?»</em><span class="caret" aria-hidden="true"></span></p>
+                <span class="composer__send" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+            </figure>
 
-        <ol class="timeline">
-          <li class="stop reveal">
-            <div class="stop__node" aria-hidden="true"></div>
-            <p class="stop__text"><strong>1 · Escribo.</strong> Una frase, sin destinatario.</p>
-            <p class="bubble"><em>La pregunta, tal cual.</em></p>
-          </li>
-          <li class="stop reveal">
-            <div class="stop__node" aria-hidden="true"></div>
-            <p class="stop__text"><strong>2 · Se pesa.</strong> Cuánto esfuerzo pide y a quién le toca.</p>
-            <p class="bubble"><em>Normativa laboral reciente: le toca a quien conoce el terreno.</em></p>
-          </li>
-          <li class="stop reveal">
-            <div class="stop__node" aria-hidden="true"></div>
-            <p class="stop__text"><strong>3 · Se encarga por escrito.</strong> Nadie empieza sin instrucciones completas.</p>
-            <p class="bubble"><em>Qué responder, con qué fuente y en qué formato.</em></p>
-          </li>
-          <li class="stop reveal">
-            <div class="stop__node" aria-hidden="true"></div>
-            <p class="stop__text"><strong>4 · Entra quien sabe.</strong> Lee lo suyo en la biblioteca y se pone a ello. Si va para largo, sigue en segundo plano.</p>
-            <p class="bubble"><em>Busca la norma y su fecha.</em></p>
-          </li>
-          <li class="stop reveal">
-            <div class="stop__node" aria-hidden="true"></div>
-            <p class="stop__text"><strong>5 · Llega el resultado.</strong> Uno solo, ordenado y listo para leer.</p>
-            <p class="bubble"><em>El RD 723/2026: la empresa tiene que explicar por escrito si usa algoritmos para decidir.</em></p>
-          </li>
-          <li class="stop stop--last reveal">
-            <div class="stop__node" aria-hidden="true"></div>
-            <p class="stop__text"><strong>6 · Leo, corrijo, decido.</strong> Si hubo avance de verdad, queda anotado.</p>
-            <p class="bubble bubble--mine"><em>Lo convierto en una respuesta de 30 segundos para entrevistas.</em></p>
-          </li>
-        </ol>
+            <div class="flow__meter" aria-hidden="true">
+              <span class="flow__meter-fill"></span>
+              <ol class="flow__ticks">
+                <li></li><li></li><li></li><li></li><li></li><li></li>
+              </ol>
+            </div>
+
+            <div class="flow__stage">
+              <ol class="flow__rail" role="list">
+                <li class="flow__step is-active" data-step="0">
+                  <button type="button" class="flow__hit" data-goto="0">
+                    <span class="flow__n" aria-hidden="true">01</span>
+                    <span class="flow__t"><strong>1 · Escribo.</strong> Una frase, sin destinatario.</span>
+                  </button>
+                  <p class="flow__live-m" data-kind="0"><em>La pregunta, tal cual.</em></p>
+                </li>
+                <li class="flow__step" data-step="1">
+                  <button type="button" class="flow__hit" data-goto="1">
+                    <span class="flow__n" aria-hidden="true">02</span>
+                    <span class="flow__t"><strong>2 · Se pesa.</strong> Cuánto esfuerzo pide y a quién le toca.</span>
+                  </button>
+                  <p class="flow__live-m" data-kind="1"><em>Normativa laboral reciente: le toca a quien conoce el terreno.</em></p>
+                </li>
+                <li class="flow__step" data-step="2">
+                  <button type="button" class="flow__hit" data-goto="2">
+                    <span class="flow__n" aria-hidden="true">03</span>
+                    <span class="flow__t"><strong>3 · Se encarga por escrito.</strong> Nadie empieza sin instrucciones completas.</span>
+                  </button>
+                  <p class="flow__live-m" data-kind="2"><em>Qué responder, con qué fuente y en qué formato.</em></p>
+                </li>
+                <li class="flow__step" data-step="3">
+                  <button type="button" class="flow__hit" data-goto="3">
+                    <span class="flow__n" aria-hidden="true">04</span>
+                    <span class="flow__t"><strong>4 · Entra quien sabe.</strong> Lee lo suyo en la biblioteca y se pone a ello. Si va para largo, sigue en segundo plano.</span>
+                  </button>
+                  <p class="flow__live-m" data-kind="3"><em>Busca la norma y su fecha.</em></p>
+                </li>
+                <li class="flow__step" data-step="4">
+                  <button type="button" class="flow__hit" data-goto="4">
+                    <span class="flow__n" aria-hidden="true">05</span>
+                    <span class="flow__t"><strong>5 · Llega el resultado.</strong> Uno solo, ordenado y listo para leer.</span>
+                  </button>
+                  <p class="flow__live-m" data-kind="4"><em>El RD 723/2026: la empresa tiene que explicar por escrito si usa algoritmos para decidir.</em></p>
+                </li>
+                <li class="flow__step" data-step="5">
+                  <button type="button" class="flow__hit" data-goto="5">
+                    <span class="flow__n" aria-hidden="true">06</span>
+                    <span class="flow__t"><strong>6 · Leo, corrijo, decido.</strong> Si hubo avance de verdad, queda anotado.</span>
+                  </button>
+                  <p class="flow__live-m" data-kind="5"><em>Lo convierto en una respuesta de 30 segundos para entrevistas.</em></p>
+                </li>
+              </ol>
+
+              <div class="flow__panel" aria-live="polite">
+                <p class="flow__kicker">Estado</p>
+                <p class="flow__thread-q"><em>«¿Qué cambia en un contrato desde el 5 de octubre?»</em></p>
+                <ol class="flow__thread">
+                  <li class="flow__entry is-shown is-on" data-live="0">
+                    <span class="flow__entry-n" aria-hidden="true">01</span>
+                    <p class="flow__entry-txt"><em>La pregunta, tal cual.</em></p>
+                  </li>
+                  <li class="flow__entry" data-live="1">
+                    <span class="flow__entry-n" aria-hidden="true">02</span>
+                    <p class="flow__entry-txt"><em>Normativa laboral reciente: le toca a quien conoce el terreno.</em></p>
+                  </li>
+                  <li class="flow__entry" data-live="2">
+                    <span class="flow__entry-n" aria-hidden="true">03</span>
+                    <p class="flow__entry-txt"><em>Qué responder, con qué fuente y en qué formato.</em></p>
+                  </li>
+                  <li class="flow__entry" data-live="3">
+                    <span class="flow__entry-n" aria-hidden="true">04</span>
+                    <p class="flow__entry-txt"><em>Busca la norma y su fecha.</em></p>
+                  </li>
+                  <li class="flow__entry" data-live="4">
+                    <span class="flow__entry-n" aria-hidden="true">05</span>
+                    <p class="flow__entry-txt"><em>El RD 723/2026: la empresa tiene que explicar por escrito si usa algoritmos para decidir.</em></p>
+                  </li>
+                  <li class="flow__entry flow__entry--mine" data-live="5">
+                    <span class="flow__entry-n" aria-hidden="true">06</span>
+                    <p class="flow__entry-txt"><em>Lo convierto en una respuesta de 30 segundos para entrevistas.</em></p>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow__track" aria-hidden="true">
+            <div class="flow__mark" data-mark="0"></div>
+            <div class="flow__mark" data-mark="1"></div>
+            <div class="flow__mark" data-mark="2"></div>
+            <div class="flow__mark" data-mark="3"></div>
+            <div class="flow__mark" data-mark="4"></div>
+            <div class="flow__mark" data-mark="5"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -145,28 +219,28 @@
     <section class="sec week" id="semana" aria-labelledby="h-week">
       <div class="wrap">
         <h2 class="label reveal" id="h-week"><span class="label__dot" aria-hidden="true"></span><strong>04 — Semana · Tres citas fijas</strong></h2>
-        <p class="routine-label reveal"><span class="label__dot" aria-hidden="true"></span><code>Rutinas programadas</code></p>
+        <p class="reveal"><code class="chip chip--accent">Rutinas programadas</code></p>
 
-        <ul class="routines reveal">
-          <li>
-            <span class="routines__days" aria-hidden="true"><i class="on">L</i><i class="on">M</i><i class="on">X</i><i class="on">J</i><i class="on">V</i><i>S</i><i>D</i></span>
-            <span class="routines__when">Lunes a viernes, a primera hora</span>
-            <span class="routines__dash" aria-hidden="true"> — </span>
-            <span class="routines__what">Repaso de bandeja y calendario.</span>
-          </li>
-          <li>
-            <span class="routines__days" aria-hidden="true"><i class="on">L</i><i class="on">M</i><i class="on">X</i><i class="on">J</i><i class="on">V</i><i>S</i><i>D</i></span>
-            <span class="routines__when">Lunes a viernes</span>
-            <span class="routines__dash" aria-hidden="true"> — </span>
-            <span class="routines__what">Lo nuevo en RRHH e IA, en una página.</span>
-          </li>
-          <li>
-            <span class="routines__days" aria-hidden="true"><i>L</i><i>M</i><i>X</i><i>J</i><i>V</i><i>S</i><i class="on">D</i></span>
-            <span class="routines__when">Domingo</span>
-            <span class="routines__dash" aria-hidden="true"> — </span>
-            <span class="routines__what">Recordatorio para contarle al sistema cómo ha ido mi semana.</span>
-          </li>
-        </ul>
+        <div class="cal reveal">
+          <div class="cal__days" aria-hidden="true">
+            <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span class="is-off">S</span><span>D</span>
+          </div>
+          <div class="cal__cols" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <ol class="cal__items">
+            <li class="routine routine--a">
+              <span class="routine__days" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+              <p><strong>Lunes a viernes, a primera hora</strong> — Repaso de bandeja y calendario.</p>
+            </li>
+            <li class="routine routine--b">
+              <span class="routine__days" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+              <p><strong>Lunes a viernes</strong> — Lo nuevo en RRHH e IA, en una página.</p>
+            </li>
+            <li class="routine routine--c">
+              <span class="routine__days" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></span>
+              <p><strong>Domingo</strong> — Recordatorio para contarle al sistema cómo ha ido mi semana.</p>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
@@ -175,16 +249,19 @@
       <div class="wrap">
         <h2 class="label reveal" id="h-ledger"><span class="label__dot" aria-hidden="true"></span><strong>05 — Avances · Un registro sin relleno</strong></h2>
 
-        <p class="meta-line reveal" aria-label="Registro">Sesiones<span class="meta-sep" aria-hidden="true"> · </span>Decisiones<span class="meta-sep" aria-hidden="true"> · </span>Activos</p>
-
-        <div class="ledger reveal">
-          <p class="ledger__head"><strong>Ya ha salido de aquí:</strong></p>
-          <ol class="ledger__rows">
-            <li><span class="ledger__n" aria-hidden="true">01</span><span class="ledger__name">Perfil de LinkedIn, rediseñado</span></li>
-            <li><span class="ledger__n" aria-hidden="true">02</span><span class="ledger__name">Web profesional, construida y publicada</span></li>
-            <li><span class="ledger__n" aria-hidden="true">03</span><span class="ledger__name">Este sitio</span></li>
-            <li><span class="ledger__n" aria-hidden="true">04</span><span class="ledger__name">Formación, priorizada según el puesto que persigo.</span></li>
-          </ol>
+        <div class="book reveal">
+          <ul class="book__tabs">
+            <li>Sesiones</li><li aria-hidden="true" class="sep">·</li><li>Decisiones</li><li aria-hidden="true" class="sep">·</li><li class="is-active">Activos</li>
+          </ul>
+          <div class="book__sheet">
+            <p class="book__head"><strong>Ya ha salido de aquí:</strong></p>
+            <ul class="book__rows">
+              <li><span class="row__name">Perfil de LinkedIn, rediseñado</span><span class="row__mark" aria-hidden="true"></span></li>
+              <li><span class="row__name">Web profesional, construida y publicada</span><span class="row__mark" aria-hidden="true"></span></li>
+              <li><span class="row__name">Este sitio</span><span class="row__mark" aria-hidden="true"></span></li>
+              <li><span class="row__name">Formación, priorizada según el puesto que persigo.</span><span class="row__mark" aria-hidden="true"></span></li>
+            </ul>
+          </div>
         </div>
         <p class="coda coda--left reveal"><em>Lo siguiente ya está en marcha.</em></p>
       </div>
@@ -192,15 +269,14 @@
 
     <!-- 06 — Pulso -->
     <section class="sec pulse" id="pulso" aria-labelledby="h-pulse">
+      <div class="pulse__bleed" aria-hidden="true"></div>
       <div class="wrap pulse__inner">
         <h2 class="label label--center reveal" id="h-pulse"><span class="label__dot" aria-hidden="true"></span><strong>06 — Pulso</strong></h2>
         <p class="pulse__big reveal">La IA me ahorra pasos. No me ahorra pensar.</p>
         <p class="pulse__mid reveal">Lo que sale con mi nombre lo he leído, lo he decidido y sé defenderlo.</p>
         <p class="pulse__small reveal"><em>Lo que lees es la portada. El sistema que la escribió sigue abierto en otra pestaña.</em></p>
         <div class="motif motif--full reveal" aria-hidden="true"><span class="motif__line"></span></div>
-        <p class="pulse__cta reveal">
-          <a class="text-link text-link--lg" href="mailto:adrianvalencia.rrhh@gmail.com"><strong>¿Quieres ver el resto? Hablemos.</strong></a>
-        </p>
+        <a class="btn btn--solid reveal" href="mailto:adrianvalencia.rrhh@gmail.com"><strong>¿Quieres ver el resto? Hablemos.</strong></a>
         <a class="pulse__mail reveal" href="mailto:adrianvalencia.rrhh@gmail.com">→ adrianvalencia.rrhh@gmail.com</a>
       </div>
     </section>
