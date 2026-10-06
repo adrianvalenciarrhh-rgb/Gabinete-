@@ -19,9 +19,7 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
-  /* Scroll-linked: progress bar + nine dots converging into one line */
-  var hero = document.querySelector('.hero');
-  var motif = document.querySelector('.motif--hero');
+  /* Scroll-linked progress bar */
   var bar = document.querySelector('.progress');
   var ticking = false;
 
@@ -31,26 +29,157 @@
     var max = Math.max(1, root.scrollHeight - window.innerHeight);
     if (y >= max - 4) document.querySelectorAll('.reveal:not(.is-in)').forEach(show);
     if (bar) bar.style.setProperty('--sp', Math.min(1, y / max).toFixed(4));
-    if (motif && hero) {
-      var p = reduce ? 1 : Math.min(1, Math.max(0, y / (hero.offsetHeight * 0.55)));
-      motif.style.setProperty('--p', p.toFixed(4));
-    }
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
 
-  /* Hero button: smooth scroll to section 02 (instant when reduced motion) */
+  /* Hero button: smooth scroll to the next section (instant when reduced motion) */
   var cta = document.querySelector('.hero .btn');
-  var target = document.getElementById('recorrido');
+  var target = document.getElementById('plataformas');
   if (cta && target) {
     cta.addEventListener('click', function (ev) {
       ev.preventDefault();
       target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-      if (history.replaceState) history.replaceState(null, '', '#recorrido');
+      if (history.replaceState) history.replaceState(null, '', '#plataformas');
     });
   }
+})();
+
+/* 00 — Portada. A field of faint strands that breathes slowly and gathers into one point.
+   Same palette and glow as 02. Canvas 2D, ~30 fps, pauses offscreen / hidden tab; one still frame with reduced motion. */
+(function () {
+  'use strict';
+  var hero = document.getElementById('portada');
+  var canvas = hero && hero.querySelector('.hero__canvas');
+  var ctx = canvas && canvas.getContext && canvas.getContext('2d', { alpha: false });
+  if (!ctx) return;
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var PAPER = [237, 237, 232], ACC = [124, 140, 255], DEEP = [41, 56, 204];
+  var W = 0, H = 0, DPR = 1, AX = 0, AY = 0, small = false;
+  var strands = [], motes = [];
+  var raf = 0, visible = true, last = 0, clock = 0;
+
+  function build() {
+    small = W < 700;
+    var n = small ? 28 : 60, k = small ? 2 : 3;
+    strands = []; motes = [];
+    for (var i = 0; i < n; i++) {
+      var g = ((i + 0.5) / n - 0.5) * 2, ag = Math.abs(g);
+      var m = Math.min(1, Math.max(0, (ag - 0.25) / 0.75)), c = [];
+      for (var q = 0; q < 3; q++) c[q] = Math.round(PAPER[q] + ((ag > 0.75 ? DEEP[q] : ACC[q]) - PAPER[q]) * m);
+      strands.push({
+        g: (g < 0 ? -1 : 1) * Math.pow(ag, 0.85),
+        p: 1.15 + 1.25 * ag + (Math.random() - 0.5) * 0.2,
+        a: (small ? 0.16 : 0.12) + (small ? 0.18 : 0.18) * (1 - ag),
+        c: 'rgb(' + c.join(',') + ')', cr: c,
+        ph: Math.random() * 6.283,
+        up: (small ? 0.62 : 0.78) + (small ? 0.12 : 0.18) * ag + Math.random() * 0.05
+      });
+      for (var jj = 0; jj < k; jj++) motes.push({ s: i, u: Math.random(), v: 0.018 + Math.random() * 0.03, z: (small ? 1.1 : 1) + Math.random() * (small ? 1.1 : 1.2) });
+    }
+  }
+  function size() {
+    var rc = hero.getBoundingClientRect();
+    W = Math.max(1, rc.width); H = Math.max(1, rc.height);
+    DPR = Math.min(1.5, window.devicePixelRatio || 1);
+    canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+    var wasSmall = small;
+    small = W < 700;
+    AX = W * 0.5;
+    /* Apex just above the title — visual bridge into the headline */
+    var title = hero.querySelector('.hero__title');
+    var top = title ? (title.getBoundingClientRect().top - rc.top) : H * 0.42;
+    AY = Math.max(small ? 72 : 120, Math.min(H * 0.62, top - (small ? 36 : 40)));
+    if (strands.length === 0 || wasSmall !== small) build();
+  }
+  function ease(x) { x = Math.min(1, Math.max(0, x)); return 1 - Math.pow(1 - x, 3); }
+
+  function pos(st, u, spread, sway) {
+    var field = Math.min(AY * (small ? 0.72 : 0.92), H * (small ? 0.15 : 0.28));
+    var x0 = AX + st.g * spread + sway;
+    var y0 = AY - field * st.up;
+    return [x0 + (AX - x0) * u, y0 + (AY - y0) * Math.pow(u, st.p)];
+  }
+
+  function render(t) {
+    var conv = ease(t / 3.6), fade = ease(t / 1.5);
+    var breath = 0.5 - 0.5 * Math.cos(t * 6.2832 / 8.5);
+    var spread = Math.max(W * (small ? 0.42 : 0.58), small ? 220 : 400) * (1 + (small ? 0.55 : 0.85) * (1 - conv)) * (0.96 + 0.04 * breath);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#0A0A0A'; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineWidth = small ? 0.9 : 1;
+    var lift = fade * (small ? 0.85 + 0.35 * breath : 0.7 + 0.3 * breath), i, st, P, S = 22;
+
+    for (i = 0; i < strands.length; i++) {
+      st = strands[i];
+      var sway = Math.sin(t * 0.11 + st.ph) * (small ? 8 : 18);
+      var a0 = pos(st, 0, spread, sway);
+      var gr = ctx.createLinearGradient(a0[0], a0[1], AX, AY);
+      var al = st.a * lift;
+      gr.addColorStop(0, 'rgba(' + st.cr.join(',') + ',0)');
+      gr.addColorStop(0.5, 'rgba(' + st.cr.join(',') + ',' + (al * (small ? 0.38 : 0.22)).toFixed(3) + ')');
+      gr.addColorStop(1, 'rgba(' + st.cr.join(',') + ',' + Math.min(1, al * (small ? 1.25 : 1)).toFixed(3) + ')');
+      ctx.strokeStyle = gr; ctx.beginPath(); ctx.moveTo(a0[0], a0[1]);
+      for (var s = 1; s <= S; s++) { P = pos(st, s / S, spread, sway * (1 - s / S)); ctx.lineTo(P[0], P[1]); }
+      ctx.stroke();
+      st._sw = sway;
+    }
+    for (i = 0; i < motes.length; i++) {
+      var mo = motes[i]; st = strands[mo.s];
+      var u = mo.u + t * mo.v; u -= Math.floor(u);
+      P = pos(st, u, spread, st._sw * (1 - u));
+      var ma = (0.12 + 0.75 * u * u) * (1 - Math.pow(u, 14)) * lift * (0.5 + st.a * 2) * (small ? 1.35 : 1);
+      if (ma < 0.01) continue;
+      ctx.fillStyle = 'rgba(' + st.cr.join(',') + ',' + Math.min(1, ma).toFixed(3) + ')';
+      var z = mo.z * (1 + 0.4 * u); ctx.fillRect(P[0] - z / 2, P[1] - z / 2, z, z);
+    }
+    var R = (small ? 130 : 280) * (0.88 + 0.12 * breath) * (0.55 + 0.45 * conv);
+    var k = conv * ((small ? 0.72 : 0.55) + (small ? 0.4 : 0.45) * breath);
+    var gl = ctx.createRadialGradient(AX, AY, 0, AX, AY, R);
+    gl.addColorStop(0, 'rgba(214,220,255,' + ((small ? 0.78 : 0.55) * k).toFixed(3) + ')');
+    gl.addColorStop(0.28, 'rgba(124,140,255,' + ((small ? 0.28 : 0.18) * k).toFixed(3) + ')');
+    gl.addColorStop(0.58, 'rgba(124,140,255,' + ((small ? 0.08 : 0.045) * k).toFixed(3) + ')');
+    gl.addColorStop(1, 'rgba(124,140,255,0)');
+    ctx.fillStyle = gl; ctx.fillRect(AX - R, AY - R, R * 2, R * 2);
+    var coreR = small ? 10 : 8;
+    var core = ctx.createRadialGradient(AX, AY, 0, AX, AY, coreR);
+    core.addColorStop(0, 'rgba(255,255,255,' + ((small ? 1 : 0.95) * conv * (0.9 + 0.1 * breath)).toFixed(3) + ')');
+    core.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = core; ctx.fillRect(AX - coreR, AY - coreR, coreR * 2, coreR * 2);
+    /* soft fade into the text area so the field never competes with type */
+    ctx.globalCompositeOperation = 'source-over';
+    var fadeY = AY + (small ? 18 : 28);
+    var vg = ctx.createLinearGradient(0, fadeY, 0, Math.min(H, fadeY + H * 0.22));
+    vg.addColorStop(0, 'rgba(10,10,10,0)');
+    vg.addColorStop(1, 'rgba(10,10,10,1)');
+    ctx.fillStyle = vg; ctx.fillRect(0, fadeY, W, H - fadeY);
+  }
+
+  function frame(now) {
+    raf = 0;
+    if (mq.matches) { render(30); return; }
+    var dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
+    if (last && dt < 0.031) { raf = requestAnimationFrame(frame); return; }
+    last = now; clock += dt;
+    render(clock);
+    if (visible && !document.hidden) raf = requestAnimationFrame(frame);
+  }
+  function kick() { if (!raf && (visible || mq.matches)) { last = 0; raf = requestAnimationFrame(frame); } }
+
+  size(); render(mq.matches ? 30 : 0);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { size(); if (mq.matches) kick(); });
+  if ('ResizeObserver' in window) new ResizeObserver(function () { size(); if (mq.matches) kick(); }).observe(hero);
+  else window.addEventListener('resize', function () { size(); kick(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) kick(); }).observe(hero);
+  }
+  kick();
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) kick(); });
+  if (mq.addEventListener) mq.addEventListener('change', kick);
 })();
 
 /* 02 — Criterio. Many strands of light, one point. Canvas/WebGL, no libraries; pauses offscreen. */

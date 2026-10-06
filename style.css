@@ -109,42 +109,95 @@ code { font-family: var(--mono); }
 .js .reveal.is-in { opacity: 1; transform: none; }
 
 /* ---------- 00 hero ---------- */
-.hero { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: clamp(5rem, 10vh, 8rem) 0 0; overflow: hidden; }
-.hero .label { margin-bottom: clamp(2rem, 6vh, 4rem); }
-.hero::before {
-  content: ""; position: absolute; inset: -20% -10% auto -10%; height: 90%;
-  background: radial-gradient(50% 50% at 50% 30%, rgba(124,140,255,0.10), transparent 70%);
-  pointer-events: none;
+.hero {
+  min-height: 100vh; min-height: 100svh;
+  display: grid;
+  grid-template-rows: minmax(0, 1.6fr) auto auto minmax(0, 0.35fr);
+  align-content: stretch;
+  padding: 0;
+  overflow: hidden; isolation: isolate;
 }
-.hero__inner { position: relative; }
-.hero__title { font-size: var(--fs-xxl); line-height: 0.94; letter-spacing: -0.055em; font-weight: 600; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+.hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: -1; pointer-events: none; }
+html:not(.js) .hero { background: radial-gradient(28% 22% at 50% 42%, rgba(124,140,255,0.18), rgba(124,140,255,0.04) 55%, transparent 100%), var(--bg); }
+.hero__inner { position: relative; grid-row: 2; display: flex; flex-direction: column; padding: 0; }
+.hero__core {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  /* room for the short light field just above the title */
+  padding-top: clamp(2.5rem, 6.5vh, 4.5rem);
+}
+.hero__title { font-size: clamp(2.85rem, 0.85rem + 6.6vw, 7.6rem); line-height: 0.94; letter-spacing: -0.055em; font-weight: 600; margin-bottom: clamp(1.25rem, 3vh, 2rem); }
 .hero__title strong { font-weight: 600; }
 .hero__line { display: block; }
 .hero__line--a { color: var(--ink-3); }
 .hero__line--b { color: var(--ink); }
-.hero__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem 4rem; flex-wrap: wrap; }
-.hero__lede { max-width: 34ch; font-size: var(--fs-l); line-height: 1.4; color: var(--ink-2); font-weight: 300; letter-spacing: -0.01em; }
+.hero__lede { max-width: 42ch; font-size: var(--fs-l); line-height: 1.4; color: var(--ink-2); font-weight: 300; letter-spacing: -0.01em; text-align: center; text-wrap: balance; }
 .hero__lede strong { color: var(--ink); font-weight: 500; }
+.btn--hero { margin-top: clamp(1.75rem, 4.5vh, 2.75rem); background: var(--ink); color: #0A0A0A; border: 1px solid var(--ink); }
+.btn--hero:hover { background: #fff; border-color: #fff; box-shadow: 0 0 0 6px var(--accent-soft), 0 0 40px -6px rgba(124,140,255,0.55); }
+@media (max-width: 700px) {
+  /* Midpoint between bottom-biased stack and the old too-high layout */
+  .hero { grid-template-rows: minmax(0, 1.25fr) auto auto minmax(0, 0.7fr); }
+  .hero__core { padding-top: clamp(2rem, 5.5vh, 3.25rem); }
+  .hero__lede { font-size: var(--fs-s); line-height: 1.45; max-width: 274px; text-align: justify; text-wrap: pretty; }
+}
+@media (max-width: 480px) {
+  .hero__core { padding-top: clamp(2.25rem, 7vh, 3.75rem); }
+  .hero__title { letter-spacing: -0.05em; }
+  .hero__lede { max-width: 274px; }
+}
 
-/* motif */
+/* motif — slim horizon line + soft core (premium, does not compete with top beam) */
 .motif { position: relative; width: 100%; }
-.motif--hero { height: clamp(110px, 17vh, 170px); margin-top: clamp(1.5rem, 4vh, 3rem); }
-.motif__stage { position: absolute; inset: 0; max-width: calc(var(--wrap) + var(--pad) * 2); margin: 0 auto; padding: 0 var(--pad); }
-.motif--hero .motif__line {
-  position: absolute; left: var(--pad); right: var(--pad); top: 50%; height: 2px; margin-top: -1px;
-  background: var(--ink); transform-origin: 50% 50%;
-  transform: scaleX(calc(var(--p, 0) * var(--p, 0))); opacity: calc(var(--p, 0) * 1.4);
+.motif--hero {
+  grid-row: 3;
+  position: relative;
+  height: clamp(40px, 5.5vh, 56px);
+  margin-top: clamp(1.25rem, 3vh, 2rem);
+  margin-bottom: clamp(0.35rem, 1.2vh, 0.9rem);
+  display: flex; align-items: center; justify-content: center;
 }
-.motif--hero i {
-  --q: calc(1 - var(--p, 0));
-  position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%;
-  background: var(--ink);
-  left: calc(50% + (var(--x) * var(--q) + var(--tx) * var(--p, 0)) * 1%);
-  top: calc(50% + var(--y) * var(--q) * 0.8px);
-  transform: scale(calc(1 - var(--p, 0) * 0.6));
-  opacity: calc(1 - var(--p, 0) * var(--p, 0) * 0.85);
+.motif__ray {
+  display: block;
+  width: min(42vw, 420px);
+  height: 1px;
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(237, 237, 232, 0.12) 18%,
+    rgba(124, 140, 255, 0.45) 48%,
+    rgba(237, 237, 232, 0.85) 50%,
+    rgba(124, 140, 255, 0.45) 52%,
+    rgba(237, 237, 232, 0.12) 82%,
+    transparent 100%
+  );
+  box-shadow: 0 0 18px -2px rgba(124, 140, 255, 0.35);
 }
-.motif--hero i:nth-of-type(5) { background: var(--accent); }
+.motif__core {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #EDEDE8;
+  box-shadow:
+    0 0 0 3px rgba(124, 140, 255, 0.16),
+    0 0 14px 2px rgba(124, 140, 255, 0.55),
+    0 0 28px 4px rgba(124, 140, 255, 0.22);
+  animation: motif-pulse 5.5s ease-in-out infinite;
+}
+@keyframes motif-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+@media (max-width: 700px) {
+  .motif--hero { height: 36px; margin-top: clamp(1.1rem, 2.8vh, 1.6rem); }
+  .motif__ray { width: min(58vw, 260px); }
+  .motif__core { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motif__core { animation: none; opacity: 0.95; transform: none; }
+}
 
 .motif--full { height: 40px; display: flex; align-items: center; margin: clamp(3rem, 7vw, 5rem) auto; max-width: 720px; }
 .motif--full .motif__line { display: block; width: 100%; height: 2px; background: #0A0A0A; transform-origin: 50% 50%; transform: scaleX(0); transition: transform 1.6s var(--ease) .2s; }
@@ -401,8 +454,6 @@ html:not(.js) #recorrido .beam { background: radial-gradient(40% 55% at 50% 32%,
 }
 
 @media (max-width: 480px) {
-  .hero__title { letter-spacing: -0.05em; }
-  .hero__foot { flex-direction: column; align-items: flex-start; }
   .btn--solid { padding: 1.05em 1.5em; }
   .stamp { letter-spacing: 0.16em; }
   .folder__body { aspect-ratio: 4 / 3; }
