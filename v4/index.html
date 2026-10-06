@@ -72,118 +72,22 @@
       </div>
     </section>
 
-    <!-- 02 — Recorrido (redesigned: sticky stage + live state) -->
+    <!-- 02 — Criterio -->
     <section class="sec route" id="recorrido" aria-labelledby="h-route">
       <div class="wrap">
-        <h2 class="label reveal" id="h-route"><span class="label__dot" aria-hidden="true"></span><strong>02 — Recorrido · Lo que pasa después de pulsar Enviar</strong></h2>
-
-        <div class="flow reveal" data-flow>
-          <div class="flow__pin">
-            <figure class="composer" aria-label="Ejemplo">
-              <figcaption class="composer__label">Ejemplo:</figcaption>
-              <div class="composer__box">
-                <p class="composer__msg"><em class="typed">«¿Qué cambia en un contrato desde el 5 de octubre?»</em><span class="caret" aria-hidden="true"></span></p>
-                <span class="composer__send" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-              </div>
-            </figure>
-
-            <div class="flow__meter" aria-hidden="true">
-              <span class="flow__meter-fill"></span>
-              <ol class="flow__ticks">
-                <li></li><li></li><li></li><li></li><li></li><li></li>
-              </ol>
-            </div>
-
-            <div class="flow__stage">
-              <ol class="flow__rail" role="list">
-                <li class="flow__step is-active" data-step="0">
-                  <button type="button" class="flow__hit" data-goto="0">
-                    <span class="flow__n" aria-hidden="true">01</span>
-                    <span class="flow__t"><strong>1 · Escribo.</strong> Una frase, sin destinatario.</span>
-                  </button>
-                  <p class="flow__live-m" data-kind="0"><em>La pregunta, tal cual.</em></p>
-                </li>
-                <li class="flow__step" data-step="1">
-                  <button type="button" class="flow__hit" data-goto="1">
-                    <span class="flow__n" aria-hidden="true">02</span>
-                    <span class="flow__t"><strong>2 · Se pesa.</strong> Cuánto esfuerzo pide y a quién le toca.</span>
-                  </button>
-                  <p class="flow__live-m" data-kind="1"><em>Normativa laboral reciente: le toca a quien conoce el terreno.</em></p>
-                </li>
-                <li class="flow__step" data-step="2">
-                  <button type="button" class="flow__hit" data-goto="2">
-                    <span class="flow__n" aria-hidden="true">03</span>
-                    <span class="flow__t"><strong>3 · Se encarga por escrito.</strong> Nadie empieza sin instrucciones completas.</span>
-                  </button>
-                  <p class="flow__live-m" data-kind="2"><em>Qué responder, con qué fuente y en qué formato.</em></p>
-                </li>
-                <li class="flow__step" data-step="3">
-                  <button type="button" class="flow__hit" data-goto="3">
-                    <span class="flow__n" aria-hidden="true">04</span>
-                    <span class="flow__t"><strong>4 · Entra quien sabe.</strong> Lee lo suyo en la biblioteca y se pone a ello. Si va para largo, sigue en segundo plano.</span>
-                  </button>
-                  <p class="flow__live-m" data-kind="3"><em>Busca la norma y su fecha.</em></p>
-                </li>
-                <li class="flow__step" data-step="4">
-                  <button type="button" class="flow__hit" data-goto="4">
-                    <span class="flow__n" aria-hidden="true">05</span>
-                    <span class="flow__t"><strong>5 · Llega el resultado.</strong> Uno solo, ordenado y listo para leer.</span>
-                  </button>
-                  <p class="flow__live-m" data-kind="4"><em>El RD 723/2026: la empresa tiene que explicar por escrito si usa algoritmos para decidir.</em></p>
-                </li>
-                <li class="flow__step" data-step="5">
-                  <button type="button" class="flow__hit" data-goto="5">
-                    <span class="flow__n" aria-hidden="true">06</span>
-                    <span class="flow__t"><strong>6 · Leo, corrijo, decido.</strong> Si hubo avance de verdad, queda anotado.</span>
-                  </button>
-                  <p class="flow__live-m" data-kind="5"><em>Lo convierto en una respuesta de 30 segundos para entrevistas.</em></p>
-                </li>
-              </ol>
-
-              <div class="flow__panel" aria-live="polite">
-                <p class="flow__kicker">Estado</p>
-                <p class="flow__thread-q"><em>«¿Qué cambia en un contrato desde el 5 de octubre?»</em></p>
-                <ol class="flow__thread">
-                  <li class="flow__entry is-shown is-on" data-live="0">
-                    <span class="flow__entry-n" aria-hidden="true">01</span>
-                    <p class="flow__entry-txt"><em>La pregunta, tal cual.</em></p>
-                  </li>
-                  <li class="flow__entry" data-live="1">
-                    <span class="flow__entry-n" aria-hidden="true">02</span>
-                    <p class="flow__entry-txt"><em>Normativa laboral reciente: le toca a quien conoce el terreno.</em></p>
-                  </li>
-                  <li class="flow__entry" data-live="2">
-                    <span class="flow__entry-n" aria-hidden="true">03</span>
-                    <p class="flow__entry-txt"><em>Qué responder, con qué fuente y en qué formato.</em></p>
-                  </li>
-                  <li class="flow__entry" data-live="3">
-                    <span class="flow__entry-n" aria-hidden="true">04</span>
-                    <p class="flow__entry-txt"><em>Busca la norma y su fecha.</em></p>
-                  </li>
-                  <li class="flow__entry" data-live="4">
-                    <span class="flow__entry-n" aria-hidden="true">05</span>
-                    <p class="flow__entry-txt"><em>El RD 723/2026: la empresa tiene que explicar por escrito si usa algoritmos para decidir.</em></p>
-                  </li>
-                  <li class="flow__entry flow__entry--mine" data-live="5">
-                    <span class="flow__entry-n" aria-hidden="true">06</span>
-                    <p class="flow__entry-txt"><em>Lo convierto en una respuesta de 30 segundos para entrevistas.</em></p>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-
-          <div class="flow__track" aria-hidden="true">
-            <div class="flow__mark" data-mark="0"></div>
-            <div class="flow__mark" data-mark="1"></div>
-            <div class="flow__mark" data-mark="2"></div>
-            <div class="flow__mark" data-mark="3"></div>
-            <div class="flow__mark" data-mark="4"></div>
-            <div class="flow__mark" data-mark="5"></div>
-          </div>
-        </div>
+        <h2 class="label reveal" id="h-route"><span class="label__dot" aria-hidden="true"></span><strong>02 — Muchas líneas, un punto</strong></h2>
+      </div>
+      <figure class="beam reveal">
+        <canvas class="beam__canvas" aria-hidden="true"></canvas>
+        <div class="beam__glow" aria-hidden="true"></div>
+        <span class="beam__line" aria-hidden="true"></span>
+        <p class="beam__tag beam__tag--lib" aria-hidden="true">Biblioteca</p>
+        <p class="beam__tag beam__tag--work" aria-hidden="true">Taller</p>
+        <p class="beam__tag beam__tag--me" aria-hidden="true">Criterio</p>
+        <figcaption class="beam__sr">Muchas líneas de luz, ordenadas a un lado y en movimiento al otro, se juntan en un solo punto.</figcaption>
+      </figure>
+      <div class="wrap">
+        <p class="beam__say reveal"><span>Aplico la IA a proyectos</span> <span>sin ceder el criterio — humano.</span></p>
       </div>
     </section>
 
@@ -256,10 +160,10 @@
           <div class="book__sheet">
             <p class="book__head"><strong>Ya ha salido de aquí:</strong></p>
             <ul class="book__rows">
-              <li><span class="row__name">Perfil de LinkedIn, rediseñado</span><span class="row__mark" aria-hidden="true"></span></li>
-              <li><span class="row__name">Web profesional, construida y publicada</span><span class="row__mark" aria-hidden="true"></span></li>
-              <li><span class="row__name">Este sitio</span><span class="row__mark" aria-hidden="true"></span></li>
-              <li><span class="row__name">Formación, priorizada según el puesto que persigo.</span><span class="row__mark" aria-hidden="true"></span></li>
+              <li><span class="row__name">Perfil de LinkedIn, rediseñado</span><span class="status"><i aria-hidden="true"></i>hecho</span></li>
+              <li><span class="row__name">Web profesional, construida y publicada</span><span class="status"><i aria-hidden="true"></i>hecho</span></li>
+              <li><span class="row__name">Este sitio</span><span class="status"><i aria-hidden="true"></i>hecho</span></li>
+              <li><span class="row__name">Formación, priorizada según el puesto que persigo.</span><span class="status"><i aria-hidden="true"></i>hecho</span></li>
             </ul>
           </div>
         </div>
@@ -269,7 +173,6 @@
 
     <!-- 06 — Pulso -->
     <section class="sec pulse" id="pulso" aria-labelledby="h-pulse">
-      <div class="pulse__bleed" aria-hidden="true"></div>
       <div class="wrap pulse__inner">
         <h2 class="label label--center reveal" id="h-pulse"><span class="label__dot" aria-hidden="true"></span><strong>06 — Pulso</strong></h2>
         <p class="pulse__big reveal">La IA me ahorra pasos. No me ahorra pensar.</p>
