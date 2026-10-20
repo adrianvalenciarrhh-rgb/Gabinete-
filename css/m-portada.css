@@ -1,0 +1,43 @@
+/* M0 · PORTADA «REGISTRO + PULSO» (v1.2). Superficie clara, la frase entera a escala de cartel en la retícula
+   y un solo gesto: siete trazos entran por la izquierda, se hacen uno en «solo», laten en «pulso» y acaban en el punto.
+   Al bajar, esa línea se convierte en el filete de 01: es el hilo conductor de toda la página. */
+.pt{position:relative;min-height:100svh;overflow:hidden;isolation:isolate}
+.p7 .in{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column}
+.p7 .kick{padding-top:clamp(28px,6vh,72px);margin:0}
+.p7 .ttl{margin-top:auto;padding-top:var(--s5)}
+.p7 .wd{display:block;overflow:visible}
+/* la frase ocupa la retícula; si la pantalla es baja, manda la altura */
+.p7 .hd{width:min(100%,calc((100svh - 380px)*3.3))}
+.p7 .hm{display:none}
+.p7 [data-ln]{transform-box:fill-box}
+.p7 .gl path{fill:var(--fg)}.p7 .gl .dt{fill:var(--red)}
+.p7 .tr path{fill:none;stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.p7 .tr-a path{stroke:var(--fg-2)}.p7 .tr-a .one{stroke:var(--fg);stroke-width:1.35}
+.p7 .tr-b path{stroke:var(--bg);stroke-width:1.8}
+/* bajo el titular: lectura (izquierda) y entrada + llamada (derecha), sin filete que cruce la señal */
+.p7 .sub{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);align-items:end;margin-top:clamp(24px,4.4vh,52px);padding-bottom:clamp(28px,5.4vh,60px)}
+.p7 .meta{grid-column:1/6;color:var(--mute)}
+.p7 .ld{grid-column:8/13}
+.p7 .lede{font-size:clamp(17px,1.32vw,21px);color:var(--fg-2);max-width:36ch}
+.p7 .cta{color:var(--fg);margin-top:var(--s3)}
+/* lienzo de la señal: fijo, encima de todo, sin capturar el puntero */
+canvas.sg{position:fixed;inset:0;width:100vw;height:100vh;z-index:20;pointer-events:none;display:none}
+.sg-on canvas.sg{display:block}
+.p7.live .tr,.p7.live .gl .dt{display:none}
+.sg-on #que-es .sh{border-bottom-color:transparent}.sg-on.sg-k1 #que-es .sh{border-bottom-color:var(--hair-2)}
+.sg-on #que-es h2 .dot{color:transparent}.sg-on.sg-k1 #que-es h2 .dot{color:var(--red)}
+/* antes de que llegue el JS: oculto un instante, con red de seguridad a los 2,6 s */
+.js:not(.still) .p7 [data-e],.js:not(.still) .p7 [data-ln]{opacity:0;animation:sg-in 0s 2.6s forwards}
+html.js .p7.live [data-e],html.js .p7.live [data-ln]{opacity:1;animation:none}
+@keyframes sg-in{to{opacity:1}}
+@media (max-width:1000px){.p7 .meta{grid-column:1/-1;order:2;margin-top:var(--s4)}.p7 .ld{grid-column:1/-1;max-width:46ch}}
+@media (max-width:700px){
+ .p7 .bar>:nth-child(2){display:none}
+ .p7 .kick{padding-top:22px}
+ .p7 .ttl{margin-top:clamp(18px,4.5vh,40px);padding-top:0}
+ .p7 .hd{display:none}.p7 .hm{display:block;width:100%}
+ .p7 .sub{flex:1;display:flex;flex-direction:column;align-items:stretch;margin-top:clamp(18px,3.4vh,30px);padding-bottom:22px}
+ .p7 .meta{order:2;margin-top:auto;padding-top:var(--s5)}
+ .p7 .m-o{display:none}
+ .p7 .lede{font-size:16.5px}
+}

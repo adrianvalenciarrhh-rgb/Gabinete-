@@ -1,0 +1,114 @@
+/* Gabinete · maqueta (sistema telemetria.css v1.2). Base clara (Registro); el grafito solo en el punto de control (02). */
+.sec{position:relative;padding-block:var(--sec)}
+.sec>.wrap{position:relative}
+.sec .sh{margin-bottom:clamp(40px,5vw,72px)}
+/* barra superior */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);height:56px;border-bottom:1px solid var(--hair)}
+.bar>*{flex:1}.bar .sm{display:none}
+@media (max-width:900px){.bar .sm{display:inline}}.bar>:nth-child(2){text-align:center}.bar>:last-child{text-align:right}
+/* portada: ver m-portada.css (M0 · Registro + pulso) */
+.kick{display:flex;align-items:center;gap:12px;margin-bottom:clamp(20px,3vh,32px);color:var(--fg)}
+.kick::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red)}
+/* 01 */
+.s1-t{grid-column:1/8}
+.s1-t .big{margin-top:var(--s5)}
+.s1-n{grid-column:9/13;align-self:end}
+.lad{margin-top:clamp(64px,8vw,112px)}
+.lad ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gut);margin-top:var(--s3);counter-reset:l}
+.lad li{position:relative;padding-top:var(--s3);border-top:1px solid var(--fg)}
+.lad li::before{counter-increment:l;content:"Paso " counter(l);display:block;font:400 10px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:var(--s2)}
+.lad li::after{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--fg)}
+
+.lad b{display:block;font:500 clamp(20px,1.8vw,27px)/1.15 var(--disp);font-variation-settings:"opsz" 32;letter-spacing:-.026em}
+.lad em{display:block;margin-top:var(--s2);font-style:normal;font-size:14px;color:var(--mute);max-width:24ch}
+/* titulares en dos líneas */
+.sec h2.d2>span,.sec h2.d1>span{display:block}
+.m-dial .pan .sh{margin-bottom:0}
+/* 02 */
+.s2 h2{max-width:14ch}
+.s2 .m-dial{margin-top:clamp(16px,2vw,32px)}
+/* 03 */
+.s3-h{grid-column:1/8}.s3-n{grid-column:9/13;align-self:end}
+.fns{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--fg)}
+.fns li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);align-items:baseline;padding:18px 0;border-bottom:1px solid var(--hair);transition:background var(--t1) var(--e)}
+.fns .n{grid-column:1/2;font:400 11px/1 var(--mono);color:var(--mute)}
+.fns b{grid-column:2/7;font:500 clamp(22px,2.1vw,32px)/1.12 var(--disp);font-variation-settings:"opsz" 32;letter-spacing:-.03em}
+.fns .m{grid-column:7/11;font-size:15px;color:var(--fg-2)}
+.fns .t{grid-column:11/13;justify-self:end}
+.chip.nw{color:var(--fg);border-color:var(--fg)}
+/* 04 */
+.s4-t{grid-column:1/6}
+.s4-t .big{margin-top:var(--s5)}
+.rl{margin-top:var(--s6);border-top:1px solid var(--hair-2)}
+.rl li{display:grid;grid-template-columns:22px 1fr auto;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--hair)}
+.rl i{width:9px;height:9px;border-radius:50%;background:var(--green);transform:translateY(-1px)}
+.rl i.h{background:none;border:1px dashed var(--green)}
+.rl span{color:var(--mute);font:400 10.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:right}
+.s4-n{margin-top:var(--s4)}
+.s4-f{grid-column:7/13;align-self:center}
+.s4-f .m-radar{max-width:540px;margin-inline:auto}
+.s4-f .cap{max-width:540px;margin:var(--s3) auto 0}
+/* 05 */
+.s5 .marg{grid-column:1/4}.s5 .main{grid-column:4/13}
+.s5-f{margin-top:clamp(40px,5vw,72px);align-items:start}
+.s5-t{margin-top:clamp(56px,6vw,96px);align-items:start}
+.s5 .marg .cap{max-width:30ch}
+/* 06 */
+.rules li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);align-items:baseline;padding:clamp(18px,2vw,28px) 0;border-bottom:1px solid var(--hair)}
+
+.rules .n{grid-column:1/2;font:400 11px/1 var(--mono);color:var(--mute);letter-spacing:.06em}
+.rules p{grid-column:2/12;font:500 clamp(24px,2.8vw,44px)/1.1 var(--disp);font-variation-settings:"opsz" 32;letter-spacing:-.034em;color:var(--mute);text-wrap:balance}
+.rules p span{color:var(--fg);display:block}
+.rules li.off p{color:var(--mute);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--hair-2)}
+.rules li.off .chip{grid-column:2/12;justify-self:start;margin-top:var(--s3)}
+/* 07 */
+.s7 h2{font-size:clamp(40px,7.1vw,118px);line-height:.96;letter-spacing:-.058em}
+.s7 h2>span{display:block}
+.s7-g{margin-top:clamp(40px,5vw,72px)}
+.s7-t{grid-column:5/12}
+.s7-t .txt{margin-top:var(--s4)}
+.s7-q{margin-top:var(--s6);font:400 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s3)}
+/* pie */
+.ft{position:relative;overflow:hidden}
+.ft>.wrap{position:relative;padding-top:clamp(40px,5vw,80px)}
+.ft>.wrap::before{content:"";position:absolute;top:0;left:var(--m);right:var(--m);border-top:1px solid var(--hair-2)}
+.ft.sf-light{margin-top:calc(var(--sec)*-.35)}
+.ft-n{font:600 clamp(64px,15vw,260px)/.84 var(--disp);font-variation-settings:"opsz" 32;letter-spacing:-.06em;margin-left:-.06em;white-space:nowrap}
+.ft-n .dot{color:var(--red)}
+.ft-g{margin-top:clamp(40px,5vw,72px);padding-bottom:var(--s6);border-top:1px solid var(--hair-2);padding-top:var(--s4)}
+.ft-g>:first-child{grid-column:1/6}
+.ft-g>:nth-child(2){grid-column:7/10}
+.ft-g>:nth-child(3){grid-column:10/13}
+.ft-g p.mic{font-size:10px;line-height:1.5;color:var(--mute)}
+.ft-g .lab{display:block;color:var(--mute);margin-bottom:var(--s2)}
+.ft-g p{font-size:15px;color:var(--fg-2);max-width:40ch}
+.ft-g ul li{padding:3px 0;font-size:15px}
+.ft-c{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:var(--s3) 0 var(--s4);border-top:1px solid var(--hair);color:var(--mute)}
+@media (max-width:900px){
+ .bar>:nth-child(2){display:none}
+ .bar .lg{display:none}
+ .m-dial .pan{margin-top:var(--s5)}
+ .fil-t{font-size:13px}
+ .s1-t,.s1-n,.s3-h,.s3-n,.s4-t,.s4-f,.s7-t{grid-column:1/-1}
+ .s1-n,.s3-n{margin-top:var(--s4)}
+ .lad ol{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--s5)}
+ .fns li{grid-template-columns:28px 1fr auto;row-gap:4px}
+ .fns .n{grid-column:1}.fns b{grid-column:2}.fns .t{grid-column:3;grid-row:1}.fns .m{grid-column:2/4}
+ .s4-f{margin-top:var(--s6)}
+ .s5 .marg,.s5 .main{grid-column:1/-1}
+ .s5-f .marg{order:2;margin-top:var(--s4)}
+ .s5-t .marg{margin-bottom:var(--s3)}
+ .rules li{grid-template-columns:36px 1fr}.rules .n{grid-column:1}.rules p,.rules li.off .chip{grid-column:2}
+ .s7 h2{font-size:calc((100vw - 2*var(--m))/7.4)}
+ .ft-g>:first-child,.ft-g>:nth-child(2),.ft-g>:nth-child(3){grid-column:1/-1;margin-bottom:var(--s4)}
+ .ft-n{font-size:calc((100vw - 2*var(--m))/5.4)}
+}
+@media (max-width:560px){.lad ol{grid-template-columns:1fr}.fns .m{font-size:14px}}
+@media (max-width:600px){.sec h2.d2>span{display:inline}.sec h2.d2{text-wrap:balance}}
+@media (max-width:600px){.rl li{grid-template-columns:22px 1fr;row-gap:2px}.rl span{grid-column:2;text-align:left}}
+@media (max-width:560px){.fns b{grid-column:2/4}.fns .t{grid-column:2/4;grid-row:3;justify-self:start;margin-top:8px}}
+#h-4>span{display:inline}#h-4{text-wrap:balance}
+
+/* 04 · Rutinas en calma: el radar es una figura quieta y contenida, no un momento (el momento es 05) */
+.s4-f .m-radar{max-width:440px;margin-inline:auto}

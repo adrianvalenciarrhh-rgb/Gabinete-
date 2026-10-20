@@ -1,0 +1,246 @@
+/* ==========================================================================
+   TELEMETRÍA · sistema de estilo del lado profesional (v1.2, borrador)
+   Base: .sf-light (Registro claro, familia adrianvalencia.es: #FAFAFA, tinta #0A0A0A, punto rojo).
+   Contrapunto: .sf-dark (grafito), como mucho en 1–2 momentos por página (el punto de control).
+   Regla de color: tinta y filetes para todo; ROJO = decisión humana (y el punto de marca);
+   VERDE = activo / en curso. Nada más tiene color.
+   ========================================================================== */
+@font-face{font-family:'Azeret Mono';src:url(../fonts/azeret-mono.woff2) format('woff2');font-weight:200 600;font-display:swap}
+@font-face{font-family:'Inter V';src:url(../fonts/inter-var.woff2) format('woff2');font-weight:100 900;font-display:swap}
+/* métricas de reserva ajustadas para que el cambio de fuente no mueva la maqueta */
+@font-face{font-family:'Azeret Fallback';src:local('DejaVu Sans Mono'),local('Menlo'),local('Consolas');size-adjust:96%}
+@font-face{font-family:'Inter Fallback';src:local('Arial'),local('Helvetica');size-adjust:107%;ascent-override:90%}
+
+:root{
+ /* tipo */
+ --mono:'Azeret Mono','Azeret Fallback',ui-monospace,Menlo,monospace;
+ --sans:'Inter V','Inter Fallback',system-ui,sans-serif;
+ --disp:var(--sans);                    /* Inter con eje óptico: Display (opsz 32) en titulares */
+ /* espacio (base 8) */
+ --s1:4px;--s2:8px;--s3:16px;--s4:24px;--s5:32px;--s6:48px;--s7:64px;--s8:96px;--s9:128px;--s10:192px;
+ --m:clamp(20px,4vw,64px);              /* margen lateral */
+ --gut:clamp(12px,1.6vw,24px);          /* medianil */
+ --sec:clamp(96px,11vw,176px);          /* respiración entre secciones */
+ /* movimiento */
+ --e:cubic-bezier(.2,.7,.1,1);--t1:160ms;--t2:320ms;--t3:640ms;
+ /* constantes de marca */
+ --red:#FF3B30;
+}
+.sf-dark{--bg:#0E0F10;--bg-2:#141517;--fg:#ECEAE4;--fg-2:#C9C7C1;--mute:#9A9893;--hair:rgba(236,234,228,.12);--hair-2:rgba(236,234,228,.26);--red-t:#FF3B30;--green:#3FBF7F;--green-t:#3FBF7F;--sel:#FF3B30;--sel-t:#0E0F10;color-scheme:dark}
+.sf-light{--bg:#FAFAFA;--bg-2:#FFFFFF;--fg:#0A0A0A;--fg-2:#3A3A3A;--mute:#676767;--hair:rgba(10,10,10,.12);--hair-2:rgba(10,10,10,.28);--red-t:#C8261C;--green:#1E9E5A;--green-t:#0B7A40;--sel:#0A0A0A;--sel-t:#FAFAFA;color-scheme:light}
+.sf-dark,.sf-light{background:var(--bg);color:var(--fg)}
+
+/* ---------- base */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:24px}
+body{margin:0;font:400 17px/1.6 var(--sans);letter-spacing:-.006em;font-optical-sizing:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;font-feature-settings:"kern"}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.22em}
+h1,h2,h3,p,ol,ul,dl,dd,figure{margin:0}
+ol,ul{padding:0;list-style:none}
+button{font:inherit;color:inherit}
+::selection{background:var(--sel);color:var(--sel-t)}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:1px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.skip{position:fixed;left:var(--m);top:12px;transform:translateY(calc(-100% - 40px));z-index:100;padding:12px 16px;background:var(--red);color:#0E0F10;font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:transform var(--t1) var(--e)}
+.skip:focus{transform:none}
+
+/* ---------- retícula */
+.wrap{padding-inline:var(--m)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
+.cols{position:absolute;inset:0 var(--m);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);pointer-events:none}
+.cols i{border-inline:1px solid var(--hair);opacity:.32}
+.sf-light .cols i{opacity:.4}
+
+/* ---------- tipo (tracking por tamaño) */
+.d1,.d2,.d3{font-family:var(--disp);font-weight:600;font-variation-settings:"opsz" 32;font-feature-settings:"kern"}
+.mono-d{font-family:var(--mono);font-weight:300}
+.d1{font-size:clamp(42px,7.4vw,124px);line-height:.92;letter-spacing:-.052em;margin-left:-.055em}   /* ≥80px: −0,052 em; alineación óptica a la izquierda */
+.d2{font-size:clamp(32px,4.6vw,76px);line-height:.96;letter-spacing:-.046em;margin-left:-.045em}   /* 32–76px: −0,046 em */
+.d3{font-size:clamp(21px,2vw,30px);line-height:1.15;letter-spacing:-.024em;font-weight:500}             /* 21–30px: −0,024 em */
+.d1 .dot,.d2 .dot{color:var(--red);margin-right:-.6em}                                            /* el punto cuelga: no empuja la medida */
+.lede{font:350 clamp(19px,1.55vw,24px)/1.48 var(--sans);letter-spacing:-.014em;color:var(--fg);max-width:38ch;text-wrap:pretty}
+.big{font:350 clamp(19px,1.5vw,23px)/1.48 var(--sans);letter-spacing:-.013em;max-width:42ch;text-wrap:pretty}
+.txt{font-size:17px;line-height:1.6;color:var(--fg-2);max-width:58ch;text-wrap:pretty}
+.small{font-size:14px;line-height:1.55;color:var(--fg-2)}
+.lab{font:400 11px/1.45 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.mic{font:400 10px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.mute{color:var(--mute)}.red{color:var(--red-t)}.green{color:var(--green-t)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- componentes */
+/* cabecera de sección */
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3);padding-bottom:var(--s2);border-bottom:1px solid var(--hair-2)}
+.sh{flex-wrap:wrap}.sh>span:first-child{color:var(--fg);white-space:nowrap}
+.sh>span+span{color:var(--mute);text-align:right}
+/* hilo (v1.2): el filete se traza al entrar; con ?static, sin JS o sin movimiento está entero */
+.sh.draw{border-bottom-color:transparent;background:linear-gradient(var(--hair-2),var(--hair-2)) no-repeat left bottom/0 1px;transition:background-size 1.1s cubic-bezier(.22,1,.36,1)}
+.sh.draw.in{background-size:100% 1px}
+/* cierre: el filete trae un solo pulso y acaba en el punto rojo (rima con la portada) */
+.sh.pulso{position:relative;padding-right:18px}
+.sh-p{position:absolute;right:15%;bottom:-1px;width:64px;height:18px;overflow:visible;background:var(--bg)}
+.sh-p path{fill:none;stroke:var(--fg);stroke-width:1.1;stroke-linejoin:round;stroke-dasharray:110;stroke-dashoffset:0;vector-effect:non-scaling-stroke}
+.sh-d{position:absolute;right:0;bottom:-3.5px;width:7px;height:7px;border-radius:50%;background:var(--red)}
+.sh.pulso.draw .sh-p path{stroke-dashoffset:110;transition:stroke-dashoffset .7s cubic-bezier(.22,1,.36,1) .55s}
+.sh.pulso.draw .sh-d{transform:scale(0);transition:transform .5s cubic-bezier(.34,1.56,.64,1) 1.05s}
+.sh.pulso.draw.in .sh-p path{stroke-dashoffset:0}.sh.pulso.draw.in .sh-d{transform:none}
+/* enlace con flecha */
+.lk{text-decoration:none;border-bottom:1px solid var(--hair-2);transition:border-color var(--t1) var(--e),color var(--t1) var(--e)}
+.lk:hover{border-color:currentColor}
+.lk:active{color:var(--red-t)}
+.ar{display:inline-block;width:.62em;height:.62em;margin-left:.3em;vertical-align:.02em;transition:transform var(--t1) var(--e)}
+a:hover .ar{transform:translate(1px,-1px)}
+/* botón (v1.2, ADN de adrianvalencia.es): píldora, mono en mayúsculas; principal en tinta, secundario en filete */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background var(--t1) var(--e),color var(--t1) var(--e),border-color var(--t1) var(--e)}
+.btn:hover{background:transparent;color:var(--fg)}
+.btn:active{transform:translateY(1px)}
+.btn.q{background:transparent;color:var(--fg);border-color:var(--hair-2)}
+.btn.q:hover{border-color:var(--fg)}
+.btn.nt{text-transform:none;letter-spacing:.02em;font-size:12px}
+.btn[disabled]{opacity:.5;cursor:default}
+/* ficha de estado */
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:4px 8px;border:1px solid var(--hair-2);font:400 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);transition:color var(--t2) var(--e),border-color var(--t2) var(--e),background var(--t2) var(--e)}
+.chip.on{color:var(--fg);border-color:var(--fg)}
+.chip.dec{color:#0E0F10;background:var(--red);border-color:var(--red)}
+.chip.act{color:var(--green-t);border-color:var(--green)}
+/* marcas de estado (iconografía) */
+.st{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.st i{width:9px;height:9px;border-radius:50%;border:1px solid currentColor;flex:none}
+.st.h i{background:currentColor}
+.st.c{color:var(--green-t)}.st.c i{border-style:dashed;border-color:var(--green)}
+.st.p i{background:transparent}
+/* nota al margen */
+.note{font-size:14px;line-height:1.55;color:var(--mute);max-width:36ch}
+.note sup,.fn{font:500 10px/0 var(--mono);color:var(--red-t)}
+/* pie de figura */
+.cap{font-size:14px;line-height:1.5;color:var(--fg-2)}
+.cap b{display:block;margin-bottom:6px;font:400 11px/1.45 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fg)}
+/* tabla de tres filetes */
+.t3{width:100%;border-collapse:collapse;font-size:15px;line-height:1.45;border-top:1.5px solid var(--fg);border-bottom:1.5px solid var(--fg)}
+.t3 th{font:400 10.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);text-align:left;padding:12px 16px 10px 0;border-bottom:1px solid var(--fg)}
+.t3 td{padding:12px 16px 12px 0;vertical-align:top;border-bottom:1px solid var(--hair)}
+.t3 tbody tr:last-child td{border-bottom:0}
+.t3 td.n,.t3 td.c,.t3 td.e{font:400 12px/1.6 var(--mono);white-space:nowrap}
+.t3 td.n{color:var(--mute)}
+.t3 td.p{font:400 12px/1.6 var(--mono);color:var(--mute);text-align:right;padding-right:0}
+.t3 tbody tr{transition:background var(--t1) var(--e)}
+.t3 tbody tr:hover,.t3 tbody tr.hl,.t3 tbody tr:focus-visible{background:var(--bg-2)}
+.t3 tbody tr:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+.t3 tr.hl td.p{color:var(--fg)}
+
+/* ---------- MÓDULOS (la animación es una capa; el estado final está en el HTML) */
+.mod{position:relative}
+.instr{cursor:crosshair}
+/* M1 · Señales que convergen */
+.m-senal{position:relative;height:clamp(150px,22vh,230px);border-block:1px solid var(--hair)}
+.m-senal canvas{position:absolute;inset:0;width:100%;height:100%}
+.m-senal svg.fb{position:absolute;inset:0;width:100%;height:100%}
+.js:not(.still) .m-senal.live svg.fb{visibility:hidden}
+.m-senal .ch{position:absolute;left:0;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-around;padding:10px 0;pointer-events:none}
+.m-senal .ch span{font:400 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);background:var(--bg);padding:2px 10px 2px 0}
+.m-senal .out{position:absolute;right:0;bottom:10px;font:400 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red-t);background:var(--bg);padding:2px 0 2px 8px}
+/* M2 · Punto de control */
+.m-dial{position:relative}
+.js .m-dial .run{height:400vh}
+.m-dial .stage{align-items:center;padding-block:var(--s4)}
+.js .m-dial .stage{position:sticky;top:0;min-height:100svh}
+.js.still .m-dial .run{height:auto}.js.still .m-dial .stage{position:static;min-height:0}
+.m-dial .fig{grid-column:1/9;position:relative}
+.m-dial .pan{grid-column:9/13}
+.m-dial svg{width:100%;height:auto;overflow:visible}
+.m-dial .dm{display:none}
+.dl{fill:none;stroke:var(--hair-2);stroke-width:1}
+.dl-f{fill:none;stroke:var(--fg);stroke-width:1.6;transition:stroke var(--t2)}
+.dl-tk{stroke:var(--hair-2)}.dl-tk.M{stroke:var(--mute)}
+.dl-r{fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:square}
+.dl-t{font:400 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--mute);transition:fill var(--t2)}
+.dl-t.on{fill:var(--fg)}.dl-t.dec{fill:var(--red-t)}
+.dl-port{fill:var(--bg);stroke:var(--mute);transition:fill var(--t1),stroke var(--t1)}
+.dl-port.on{fill:var(--fg);stroke:var(--fg)}.dl-port.dec{fill:var(--red);stroke:var(--red)}
+.dl-lane{stroke:var(--hair-2);transition:stroke var(--t2)}.dl-lane.dec{stroke:var(--red)}
+.dl-node{fill:var(--bg);stroke:var(--mute)}.dl-node.dec{fill:var(--red);stroke:var(--red)}
+.dl-orq{fill:none;stroke:var(--mute);stroke-width:1.2;stroke-dasharray:3 5;transition:stroke var(--t2)}
+.dl-orq.on{stroke:var(--fg);stroke-dasharray:none}
+.dl-core{fill:var(--red);stroke:var(--hair-2)}
+.dl-ct{font:400 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#0E0F10;transition:fill var(--t2)}
+.dl-dot{fill:var(--red)}
+.m-dial .steps li{display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--hair);transition:opacity var(--t2) var(--e)}
+.m-dial .steps li:first-child{border-top:1px solid var(--hair-2)}
+.m-dial .steps .n{font:400 11px/1.95 var(--mono);color:var(--mute)}
+.m-dial .steps h3{font:400 18px/1.4 var(--sans);letter-spacing:-.005em}
+.m-dial .steps p{grid-column:2;margin-top:4px;font-size:15px;line-height:1.55;color:var(--fg-2)}
+.m-dial .steps li.on .n{color:var(--red-t)}
+.js:not(.still) .m-dial .steps li:not(.on) h3{color:var(--mute)}
+.js:not(.still) .m-dial .steps li:not(.on) p{display:none}
+.m-dial .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.m-dial .chl{margin-top:var(--s4)}
+/* M3 · Lámina de plóter + tabla enlazada */
+.m-lam .plate{position:relative;border-top:1px solid var(--fg);border-bottom:1px solid var(--fg);padding:var(--s3) 0 var(--s3)}
+.m-lam .plh{display:flex;justify-content:space-between;gap:12px;margin-bottom:var(--s3)}
+.m-lam .p6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-left:1px solid var(--hair)}
+.m-lam .pn{position:relative;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:var(--s3) var(--s3) var(--s3);transition:background var(--t1) var(--e)}
+.m-lam .pn:nth-child(-n+3){border-top:1px solid var(--hair)}
+.m-lam .pn svg{width:100%;height:auto;aspect-ratio:250/150;overflow:visible}
+.m-lam .pn .l{position:absolute;top:12px;left:var(--s3);font:400 11px/1 var(--mono);letter-spacing:.06em;color:var(--mute)}
+.m-lam .pn p{margin-top:var(--s2);font:400 10px/1.5 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mute);min-height:3em}
+.m-lam .pn p b{font-weight:400;color:var(--fg)}
+.m-lam .pn.hl{background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--fg)}.m-lam .pn.hl .l{color:var(--red-t)}.m-lam .pn.hl p{color:var(--fg-2)}
+.pen{fill:none;stroke:var(--fg);stroke-width:1.1;stroke-linecap:round}
+.pen.g{stroke:var(--green);stroke-dasharray:3 3}
+.pen.r{stroke:var(--red)}
+.fil{transition:opacity .45s var(--e)}
+.fil-ink{fill:var(--fg)}.fil-red{fill:var(--red)}.fil-t{font:400 10px var(--mono);letter-spacing:.05em;fill:var(--mute)}.fil-big{font:300 30px var(--mono);letter-spacing:-.05em;fill:var(--fg)}
+.js:not(.still) .m-lam .plate.armed .fil:not(.on){opacity:0}
+.m-lam .xh{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;opacity:0;transition:opacity var(--t2);z-index:2}
+.m-lam .xh::before,.m-lam .xh::after{content:"";position:absolute;background:var(--red)}
+.m-lam .xh::before{left:-14px;top:0;width:28px;height:1px}.m-lam .xh::after{left:0;top:-14px;width:1px;height:28px}
+.m-lam .xh i{position:absolute;left:-5px;top:-5px;width:11px;height:11px;border:1px solid var(--red);border-radius:50%}
+.m-lam .plate.plot .xh{opacity:1}
+.m-lam [data-ro]{visibility:hidden}.js:not(.still) .m-lam [data-ro]{visibility:visible}
+.m-lam .key{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:var(--s3)}
+.again{margin-top:var(--s3)}
+.still .again,.is-static .again{display:none}
+/* M4 · Radar semanal (rutinas) */
+.m-radar svg{width:100%;height:auto;overflow:visible}
+.rd-g{fill:none;stroke:var(--hair)}.rd-g2{fill:none;stroke:var(--hair-2)}
+.rd-t{font:400 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--mute)}
+.rd-m{fill:var(--green);transition:opacity .5s var(--e),r .3s var(--e)}
+.rd-m.h{fill:none;stroke:var(--green);stroke-dasharray:2 2}
+.js:not(.still) .m-radar.live .rd-m{opacity:.22}
+.js:not(.still) .m-radar.live .rd-m.on{opacity:1}
+.rd-arm{stroke:var(--fg);stroke-width:1}
+.rd-wedge{fill:var(--fg);opacity:.06}
+.js:not(.still) .m-radar:not(.live) .rd-arm,.still .rd-arm,.is-static .rd-arm,html:not(.js) .rd-arm{opacity:.0}
+.still .rd-wedge,.is-static .rd-wedge,html:not(.js) .rd-wedge{opacity:0}
+.rd-core{fill:var(--red)}
+
+/* ---------- utilidades de reducción */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media (max-width:900px){
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .cols{grid-template-columns:repeat(4,minmax(0,1fr))}.cols i:nth-child(n+5){display:none}
+ .m-dial .fig,.m-dial .pan{grid-column:1/-1}
+ .m-dial .dd{display:none}.m-dial .dm{display:block}
+ .js .m-dial .stage{min-height:0;padding-top:var(--s2)}
+ .js:not(.still) .m-dial .steps li:not(.on){display:none}
+ .js:not(.still) .m-dial .steps li{border:0;padding:var(--s2) 0 0}
+ .m-lam .p6{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .m-lam .pn:nth-child(-n+3){border-top:0}.m-lam .pn:nth-child(-n+2){border-top:1px solid var(--hair)}
+ .t3 thead{display:none}.t3,.t3 tbody,.t3 tr,.t3 td{display:block}
+ .t3 tbody tr{display:grid;grid-template-columns:30px 1fr auto;gap:2px 10px;padding:12px 0;border-bottom:1px solid var(--hair)}
+ .t3 tbody tr:last-child{border-bottom:0}
+ .t3 td{padding:0!important;border:0!important}
+ .t3 td.n{grid-row:1/4}.t3 td.q{grid-column:2}.t3 td.p{grid-column:3;grid-row:1}.t3 td.c{grid-column:2}.t3 td.e{grid-column:2}
+ .t3 td.c:empty{display:none}
+}
+.m-lam .again{display:none}.js:not(.still) .m-lam .again{display:inline-flex}
+.skip:not(:focus){clip-path:inset(50%)}
+
+/* enlace de llamada a la acción (v1.2: mono en mayúsculas, como los botones y los enlaces de adrianvalencia.es) */
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:var(--s4);font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--fg);padding-bottom:7px;transition:color var(--t1) var(--e)}
+.cta:hover{color:var(--fg-2)}
+.cta svg{width:11px;height:11px;transition:transform var(--t2) var(--e)}
+.cta:hover svg{transform:translateY(3px)}
+/* rótulos del dial en móvil: halo del color de fondo para leerse sobre la escala */
+.dl-t.pm{paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round}
